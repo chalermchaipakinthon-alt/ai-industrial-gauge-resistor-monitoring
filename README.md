@@ -1,158 +1,132 @@
 # 📷 AI-Based Industrial Gauge & Resistor Monitoring System
 
-Embedded monitoring system built on **ESP32-S3** for resistor calculation and industrial gauge monitoring using camera sensing, Gemini AI, OLED feedback, Telegram notifications, and audio alerts.
+Embedded monitoring system using **ESP32-S3**, **OV5640**, **Gemini AI**, **Telegram**, **OLED**, and **audio alerts** for resistor calculation and industrial gauge monitoring.
 
-<p>
-  <img src="https://img.shields.io/badge/ESP32--S3-Embedded-red?style=flat-square" />
-  <img src="https://img.shields.io/badge/OV5640-Camera-blue?style=flat-square" />
-  <img src="https://img.shields.io/badge/Gemini-AI-4285F4?style=flat-square" />
-  <img src="https://img.shields.io/badge/Telegram-Bot-26A5E4?style=flat-square" />
-  <img src="https://img.shields.io/badge/Arduino-C%2FC++-00979D?style=flat-square" />
+<p align="center">
+  <img src="https://img.shields.io/badge/ESP32--S3-Embedded-303030?style=for-the-badge&logo=espressif&logoColor=white" />
+  <img src="https://img.shields.io/badge/OV5640-Camera-2563EB?style=for-the-badge" />
+  <img src="https://img.shields.io/badge/Gemini-AI-4285F4?style=for-the-badge&logo=google&logoColor=white" />
+  <img src="https://img.shields.io/badge/Telegram-Alert-26A5E4?style=for-the-badge&logo=telegram&logoColor=white" />
+</p>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/Resistor-4%20%2F%205%20Band-22C55E?style=flat-square" />
+  <img src="https://img.shields.io/badge/Gauge-0--600%20bar-F59E0B?style=flat-square" />
+  <img src="https://img.shields.io/badge/Status-Safe%20%2F%20Warning%20%2F%20Danger-EF4444?style=flat-square" />
+  <img src="https://img.shields.io/badge/Communication-HTTPS%20%2F%20JSON-8B5CF6?style=flat-square" />
 </p>
 
 ---
 
 ## 🚀 Project Overview
 
-This project was developed as a second-year Mechatronics Engineering project to reduce errors from manually reading resistor color bands and industrial gauge values.
+This project was developed as a second-year Mechatronics Engineering project.
 
-The system is built around an **ESP32-S3** and operates in two main modes.
+The system combines **embedded hardware, camera sensing, cloud AI, web control, Telegram notification, and audio feedback** into one monitoring device.
 
-### 🔢 Resistor Mode
-
-Users select resistor color bands through the system interface.
-
-The ESP32-S3 calculates the resistance value and tolerance locally without requiring cloud AI.
-
-The result is displayed through the web interface and OLED display.
-
-### 📷 Gauge Monitoring Mode
-
-An **OV5640 Auto Focus Camera** captures an image of an industrial pressure gauge.
-
-The ESP32-S3 sends the image to **Gemini Cloud AI through HTTPS**, where the gauge value and operating condition are analyzed.
-
-The system classifies the gauge condition into:
-
-- 🟢 **SAFE**
-- 🟡 **WARNING**
-- 🔴 **DANGER**
-
-Results are displayed on the OLED, sent through Telegram, and accompanied by audio alerts.
-
----
-
-## 🔄 System Flow
-
-<p align="center">
-  <img src="assets/system-flowchart.png" width="700"/>
-</p>
-
-The system starts by connecting the ESP32-S3 to Wi-Fi and providing access to a local web interface.
-
-From the web interface, the user can choose between **Resistor Mode** and **Gauge Mode**.
-
-Gauge Mode can also operate automatically at a fixed monitoring interval.
-
----
-
-## ⚙️ System Architecture
+It operates in two main modes:
 
 ```text
-                    ┌─────────────────┐
-                    │     ESP32-S3    │
-                    └────────┬────────┘
-                             │
-            ┌────────────────┴────────────────┐
-            │                                 │
-     Resistor Mode                       Gauge Mode
-            │                                 │
-   Color Band Selection                  OV5640 Camera
-            │                                 │
-    Local Calculation                    JPEG Image
-            │                                 │
-      Web + OLED                   HTTPS / Base64 / JSON
-                                              │
-                                        Gemini Cloud AI
-                                              │
-                                       Gauge Analysis
-                                              │
-                              ┌───────────────┼───────────────┐
-                              │               │               │
-                            SAFE           WARNING          DANGER
-                              │               │               │
-                              └──── OLED + Telegram + Audio ──┘
+Resistor Mode
+      ↓
+Select 4-band / 5-band colors
+      ↓
+ESP32-S3 local calculation
+      ↓
+Web + OLED result
+
+Gauge Mode
+      ↓
+OV5640 captures gauge image
+      ↓
+Gemini AI analysis
+      ↓
+SAFE / WARNING / DANGER
+      ↓
+OLED + Telegram + Audio Alert
 ```
 
 ---
 
-## 🛠️ Hardware
+## 🔄 System Flowchart
 
-| Component | Function |
-|---|---|
-| ESP32-S3 CAM | Main controller |
-| OV5640 Auto Focus Camera | Captures industrial gauge images |
-| SSD1306 OLED 128×64 | Displays system status and results |
-| MAX98357A | I2S audio amplifier |
-| 3W Speaker | Audio notifications and danger alerts |
-| Wi-Fi | Communication with Gemini API and Telegram |
+<p align="center">
+  <img src="./assets/system-flowchart.png" width="85%" />
+</p>
 
-### Wiring Diagram
-
-👉 [View Wiring Diagram](assets/wiringdiagram.jpg)
+<p align="center">
+  <b>Overall workflow of Resistor Mode, Gauge Mode, Gemini analysis, and alert output.</b>
+</p>
 
 ---
 
-## ✨ Key Features
+## 🧪 Testing Results
 
-- Dual-mode embedded system
-- 4-band and 5-band resistor calculation
-- Local resistor calculation on ESP32-S3
-- OV5640 Auto Focus camera integration
-- Industrial gauge image analysis using Gemini AI
-- HTTPS and JSON communication
-- Safe / Warning / Danger classification
-- OLED status display
-- Telegram notifications
-- I2S audio feedback
-- Automatic gauge monitoring mode
-- Web-based control interface
+The gauge monitoring system was tested at three operating conditions.
 
----
-
-## 🧪 Testing & Results
-
-The system was tested at multiple gauge values to verify status classification and notification behavior.
-
-| Gauge Value | Detected Zone | Status |
+| Gauge Value | Zone | Result |
 |---:|---|---|
 | 230 bar | Green | SAFE |
 | 300 bar | Yellow / Boundary | WARNING |
 | 500 bar | Red | DANGER |
 
-At the boundary between safety zones, the system selects the **higher-risk condition**.
+The system displays the result on the OLED and sends the corresponding status through Telegram.
 
-### Test Images
-
-👉 [View Test Images](assets/)
-
-The folder includes:
-
-- Resistor Mode result
-- Safe Mode result
-- Safe Telegram notification
-- Warning Mode result
-- Warning Telegram notification
-- Danger Mode result
-- Danger Telegram notification
+👉 **[View Hardware & Test Images](./assets/)**
 
 ---
 
-## 🧠 Gauge Analysis Logic
+## ✨ Key Features
 
-The system sends the captured image together with an analysis prompt to Gemini AI.
+- 4-band and 5-band resistor calculation
+- Local resistor calculation on ESP32-S3
+- OV5640 Auto Focus camera integration
+- Industrial gauge image analysis using Gemini AI
+- Safe / Warning / Danger classification
+- Web-based system control
+- OLED status display
+- Telegram notifications
+- I2S audio feedback
+- Automatic gauge monitoring every 30 seconds
 
-Gemini returns structured information including:
+---
+
+## 🧩 Hardware Used
+
+| Component | Purpose |
+|---|---|
+| ESP32-S3 CAM | Main controller |
+| OV5640 Auto Focus Camera | Captures gauge images |
+| OLED 128×64 | Displays values and system status |
+| MAX98357A | I2S audio amplifier |
+| 3W Speaker | Audio feedback and warning |
+| Wi-Fi | Gemini API and Telegram communication |
+
+👉 **[View Wiring Diagram](./assets/wiringdiagram.jpg)**
+
+---
+
+## 🛠️ Tech Stack
+
+| Layer | Technology |
+|---|---|
+| Microcontroller | ESP32-S3 |
+| Programming | C / C++ |
+| Camera | OV5640 Auto Focus |
+| AI | Gemini Cloud AI |
+| Communication | Wi-Fi, HTTPS, JSON |
+| User Interface | ESP32 Web Server |
+| Notification | Telegram Bot API |
+| Display | SSD1306 OLED |
+| Audio | I2S + MAX98357A |
+
+---
+
+## 🧠 Gauge Monitoring Logic
+
+The captured gauge image is converted and sent to Gemini AI for analysis.
+
+Gemini returns:
 
 ```text
 VALUE
@@ -162,9 +136,7 @@ CONFIDENCE
 DETAIL
 ```
 
-The ESP32-S3 processes the result and determines the required output.
-
-### Status Logic
+The system then maps the result into three operating conditions:
 
 ```text
 GREEN  → SAFE
@@ -172,7 +144,7 @@ YELLOW → WARNING
 RED    → DANGER
 ```
 
-A Danger condition also activates a repeating audio warning.
+Danger status also activates a repeating audio warning.
 
 ---
 
@@ -180,56 +152,49 @@ A Danger condition also activates a repeating audio warning.
 
 ### Camera Preview Latency
 
-Continuous image streaming caused high processing load on the ESP32-S3.
+Continuous image streaming caused high processing load.
 
-**Solution:**  
-The system was changed to capture frames only when Preview or Analyze was requested.
+**Solution:** Capture images only when Preview or Analyze is requested.
 
 ### Image Quality
 
-Lower image quality caused inaccurate gauge readings.
+Low image quality reduced gauge-reading accuracy.
 
-**Solution:**  
-Camera settings were adjusted to VGA resolution with improved JPEG quality.
+**Solution:** Adjusted the camera to VGA resolution and improved JPEG quality.
 
 ### Old Camera Frames
 
-Automatic monitoring occasionally reused an older frame.
+Automatic monitoring occasionally reused old frames.
 
-**Solution:**  
-Three old frames are discarded before capturing the image used for analysis.
+**Solution:** Discard three old frames before capturing a new image.
 
 ### Power Stability
 
-The ESP32-S3 occasionally restarted when powered from an unstable external supply.
+The ESP32-S3 occasionally restarted with an unstable external power source.
 
-**Solution:**  
-Power delivery was changed to a more stable USB-C source.
+**Solution:** Changed to a more stable USB-C power source.
 
 ### Audio Delay
 
-Generating audio through online processing introduced unnecessary latency.
+Generating audio online introduced unnecessary delay.
 
-**Solution:**  
-Audio files were stored locally and played directly through the I2S audio system.
+**Solution:** Stored WAV audio locally and played it through I2S.
 
 ---
 
 ## 🎥 Demo Video
 
-▶️ [Watch Project Demo](https://www.youtube.com/watch?v=fDfO5gYfs7E)
+▶️ **[Watch Project Demo](https://www.youtube.com/watch?v=fDfO5gYfs7E)**
 
 ---
 
-## 📁 Repository Structure
+## 📁 Project Structure
 
 ```text
 ai-industrial-gauge-resistor-monitoring/
-│
 ├── README.md
 ├── original-project.ino
 ├── project-report.pdf
-│
 └── assets/
     ├── system-flowchart.png
     ├── wiringdiagram.jpg
@@ -246,28 +211,25 @@ ai-industrial-gauge-resistor-monitoring/
 
 ## 💻 Source Code
 
-👉 [View Source Code](original-project.ino)
+👉 **[View Source Code](./original-project.ino)**
 
 ---
 
 ## 📄 Project Report
 
-👉 [View Full Project Report](project-report.pdf)
+👉 **[View Full Project Report](./project-report.pdf)**
 
 ---
 
-## 🔬 Personal Extension
+## 🔬 Personal Extension — TinyML
 
-After completing the original working project, I continued exploring an **on-device TinyML approach using Edge Impulse** as a personal extension.
+After completing the original working project, I continued exploring an **on-device TinyML approach using Edge Impulse**.
 
-This work is separate from the original project and focuses on experimenting with local image classification directly on the ESP32-S3.
-
-The TinyML extension and experimental results will be documented separately.
+This extension is separate from the original project and focuses on experimenting with local image classification directly on the ESP32-S3.
 
 ---
 
-## 👨‍💻 Author
+## 👤 Author
 
 **Pakinthon Chalermchai**  
-Mechatronics Engineering Student  
-King Mongkut's University of Technology Thonburi (KMUTT)
+Mechatronics Engineering Student, KMUTT
