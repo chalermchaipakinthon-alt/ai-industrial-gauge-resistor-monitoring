@@ -192,7 +192,7 @@ The firmware also supports automatic analysis every:
 
 The TinyML integration firmware is available here:
 
-👉 [View TinyML Firmware](./ProjectTinyML.ino)
+👉 [View TinyML Firmware](./ProjectTinyMl.ino)
 
 The firmware integrates:
 
