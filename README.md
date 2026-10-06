@@ -65,7 +65,7 @@ OLED + Telegram + Audio Alert
 - 4-band and 5-band resistor calculation
 - Local resistor calculation on ESP32-S3
 - OV5640 Auto Focus camera integration
-- Industrial gauge image analysis using Gemini AI
+- Pressure gauge image analysis using Gemini AI
 - Safe / Warning / Danger classification
 - Web-based system control
 - OLED status display
