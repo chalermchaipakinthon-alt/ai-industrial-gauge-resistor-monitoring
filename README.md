@@ -252,6 +252,18 @@ After completing the original working project, I continued exploring an **on-dev
 
 This extension is separate from the original project and focuses on experimenting with local image classification directly on the ESP32-S3.
 
+The TinyML extension includes:
+
+- Edge Impulse image-classification model
+- 96×96 labeled gauge dataset
+- Safe / Warning / Danger classification
+- Exported Arduino inference library
+
+<p align="center">
+  <a href="./tinyml-extension/">
+    <img src="https://img.shields.io/badge/View%20TinyML%20Extension-Edge%20Impulse-6C5CE7?style=for-the-badge" />
+  </a>
+</p>
 ---
 
 ## 👤 Author
