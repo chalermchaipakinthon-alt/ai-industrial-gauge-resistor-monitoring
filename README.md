@@ -1,6 +1,6 @@
 # 📷 AI-Based Industrial Gauge & Resistor Monitoring System
 
-Embedded monitoring system using **ESP32-S3**, **OV5640**, **Gemini AI**, **Telegram**, **OLED**, and **audio alerts** for resistor calculation and industrial gauge monitoring.
+Embedded monitoring system using **ESP32-S3**, **OV5640 Auto Focus Camera**, **Gemini AI**, **Telegram**, **OLED**, and **audio alerts** for resistor calculation and industrial gauge monitoring.
 
 <p align="center">
   <img src="https://img.shields.io/badge/ESP32--S3-Embedded-303030?style=for-the-badge&logo=espressif&logoColor=white" />
@@ -60,22 +60,6 @@ OLED + Telegram + Audio Alert
 
 ---
 
-## 🧪 Testing Results
-
-The gauge monitoring system was tested at three operating conditions.
-
-| Gauge Value | Zone | Result |
-|---:|---|---|
-| 230 bar | Green | SAFE |
-| 300 bar | Yellow / Boundary | WARNING |
-| 500 bar | Red | DANGER |
-
-The system displays the result on the OLED and sends the corresponding status through Telegram.
-
-👉 **[View Hardware & Test Images](./assets/)**
-
----
-
 ## ✨ Key Features
 
 - 4-band and 5-band resistor calculation
@@ -91,6 +75,48 @@ The system displays the result on the OLED and sends the corresponding status th
 
 ---
 
+## 🧪 Testing Results
+
+The gauge monitoring system was tested at three operating conditions.
+
+| Gauge Value | Zone | Result |
+|---:|---|---|
+| 230 bar | Green | SAFE |
+| 300 bar | Yellow / Boundary | WARNING |
+| 500 bar | Red | DANGER |
+
+At the boundary between safety zones, the system selects the **higher-risk condition**.
+
+---
+
+## 📸 Result Previews
+
+### Resistor Mode
+
+<p align="center">
+  <img src="./assets/Resistor%20Mode.jpg" width="70%" />
+</p>
+
+<p align="center">
+  <b>Resistor Mode result showing resistor value calculation and output display.</b>
+</p>
+
+---
+
+### Gauge Monitoring Results
+
+| Condition | Device Result | Telegram Alert |
+|---|---|---|
+| **SAFE (230 bar)** | <img src="./assets/Safe%20Mode.jpg" width="320"/> | <img src="./assets/Safe%20Telegram.jpg" width="320"/> |
+| **WARNING (300 bar)** | <img src="./assets/Warning%20Mode.jpg" width="320"/> | <img src="./assets/Warning%20Telegram.jpg" width="320"/> |
+| **DANGER (500 bar)** | <img src="./assets/Danger%20Mode.jpg" width="320"/> | <img src="./assets/Danger%20Telegram.jpg" width="320"/> |
+
+<p align="center">
+  <b>Each test case shows the hardware-side result and the corresponding Telegram notification.</b>
+</p>
+
+---
+
 ## 🧩 Hardware Used
 
 | Component | Purpose |
@@ -102,7 +128,11 @@ The system displays the result on the OLED and sends the corresponding status th
 | 3W Speaker | Audio feedback and warning |
 | Wi-Fi | Gemini API and Telegram communication |
 
-👉 **[View Wiring Diagram](./assets/wiringdiagram.jpg)**
+### Wiring Diagram
+
+<p align="center">
+  <img src="./assets/wiringdiagram.jpg" width="85%" />
+</p>
 
 ---
 
@@ -124,7 +154,7 @@ The system displays the result on the OLED and sends the corresponding status th
 
 ## 🧠 Gauge Monitoring Logic
 
-The captured gauge image is converted and sent to Gemini AI for analysis.
+The captured gauge image is sent to Gemini AI for analysis.
 
 Gemini returns:
 
@@ -136,7 +166,7 @@ CONFIDENCE
 DETAIL
 ```
 
-The system then maps the result into three operating conditions:
+The system maps the result into:
 
 ```text
 GREEN  → SAFE
@@ -151,31 +181,26 @@ Danger status also activates a repeating audio warning.
 ## 🔧 Engineering Challenges & Solutions
 
 ### Camera Preview Latency
-
 Continuous image streaming caused high processing load.
 
 **Solution:** Capture images only when Preview or Analyze is requested.
 
 ### Image Quality
-
 Low image quality reduced gauge-reading accuracy.
 
 **Solution:** Adjusted the camera to VGA resolution and improved JPEG quality.
 
 ### Old Camera Frames
-
 Automatic monitoring occasionally reused old frames.
 
 **Solution:** Discard three old frames before capturing a new image.
 
 ### Power Stability
-
 The ESP32-S3 occasionally restarted with an unstable external power source.
 
 **Solution:** Changed to a more stable USB-C power source.
 
 ### Audio Delay
-
 Generating audio online introduced unnecessary delay.
 
 **Solution:** Stored WAV audio locally and played it through I2S.
@@ -184,7 +209,7 @@ Generating audio online introduced unnecessary delay.
 
 ## 🎥 Demo Video
 
-▶️ **[Watch Project Demo]([https://www.youtube.com/watch?v=fDfO5gYfs7E](https://youtu.be/fDfO5gYfs7E?si=4999LpeGl5QZMQMY))**
+▶️ **[Watch Project Demo](https://youtu.be/fDfO5gYfs7E)**
 
 ---
 
@@ -193,8 +218,8 @@ Generating audio online introduced unnecessary delay.
 ```text
 ai-industrial-gauge-resistor-monitoring/
 ├── README.md
-├── original-project.ino
 ├── project-report.pdf
+├── esp32/
 └── assets/
     ├── system-flowchart.png
     ├── wiringdiagram.jpg
@@ -206,6 +231,20 @@ ai-industrial-gauge-resistor-monitoring/
     ├── Danger Mode.jpg
     └── Danger Telegram.jpg
 ```
+
+---
+
+## 💻 Source Code
+
+👉 **[View ESP32 Files](./esp32/)**
+
+---
+
+## 📄 Project Report
+
+👉 **[View Full Project Report](./project-report.pdf)**
+
+---
 
 ## 🔬 Personal Extension — TinyML
 
