@@ -1,4 +1,4 @@
-# 📷 AI-Based Industrial Gauge & Resistor Monitoring System
+# 📷 AI-Based Pressure Gauge & Resistor Monitoring System
 
 Embedded monitoring system using **ESP32-S3**, **OV5640 Auto Focus Camera**, **Gemini AI**, **Telegram**, **OLED**, and **audio alerts** for resistor calculation and industrial gauge monitoring.
 
