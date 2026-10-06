@@ -184,7 +184,7 @@ Generating audio online introduced unnecessary delay.
 
 ## 🎥 Demo Video
 
-▶️ **[Watch Project Demo](https://www.youtube.com/watch?v=fDfO5gYfs7E)**
+▶️ **[Watch Project Demo]([https://www.youtube.com/watch?v=fDfO5gYfs7E](https://youtu.be/fDfO5gYfs7E?si=4999LpeGl5QZMQMY))**
 
 ---
 
@@ -206,20 +206,6 @@ ai-industrial-gauge-resistor-monitoring/
     ├── Danger Mode.jpg
     └── Danger Telegram.jpg
 ```
-
----
-
-## 💻 Source Code
-
-👉 **[View Source Code](./original-project.ino)**
-
----
-
-## 📄 Project Report
-
-👉 **[View Full Project Report](./project-report.pdf)**
-
----
 
 ## 🔬 Personal Extension — TinyML
 
