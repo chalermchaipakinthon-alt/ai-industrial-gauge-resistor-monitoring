@@ -256,10 +256,10 @@ The TinyML extension includes:
 
 - Edge Impulse image-classification model
 - 96×96 labeled gauge dataset
-- Safe , Warning , Danger classification
+- Safe / Warning / Danger classification
 - Exported Arduino inference library
 
-👉 [Explore TinyML Extension](./tinyml-extension/)
+👉 [View TinyML Extension](./tinyml-extension/)
 ---
 
 ## 👤 Author
